@@ -4,6 +4,9 @@ GET http://localhost:3000/
 ### get all ads 
 GET http://localhost:3000/api/ads
 
+### get all categories
+GET http://localhost:3000/api/categories
+
 ### Create ad
 POST http://localhost:3000/api/ads
 Content-Type:  application/json

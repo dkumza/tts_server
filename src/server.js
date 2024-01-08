@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const adsRouter = require('./routes/ads');
+const categoriesRouter = require('./routes/categories');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 
 // ADS Routes
 app.use('/', adsRouter);
+app.use('/', categoriesRouter);
 
 app.listen(port, () => {
    console.log(`Server is listening on port ${port}`);
