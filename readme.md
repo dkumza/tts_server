@@ -1,6 +1,6 @@
 ## AD Portal
 
-Express server that handles the API requests from SQL (CRUD)
+Express server that handles APIs requests from SQL (CRUD)
 
 ### SERVER SIDE
 
