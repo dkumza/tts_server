@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const adsRouter = require('./routes/ads');
 const categoriesRouter = require('./routes/categories');
+const { authPlugins } = require('mysql2');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -21,6 +23,7 @@ app.get('/', (req, res) => {
 // ADS Routes
 app.use('/', adsRouter);
 app.use('/', categoriesRouter);
+app.use('/', authRouter);
 
 app.listen(port, () => {
    console.log(`Server is listening on port ${port}`);

@@ -1,5 +1,6 @@
+const jwt = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
-const { dbConfig } = require('../cfg');
+const { dbConfig, jwtSecret } = require('../cfg');
 
 const pool = mysql.createPool(dbConfig);
 
@@ -17,6 +18,19 @@ async function getSqlData(sql, argArr = []) {
    }
 }
 
+// async function getSqlDataNoTry(sql, argArr = []) {
+//    const connection = await mysql.createConnection(dbConfig);
+
+//    const [rows] = await connection.execute(sql, argArr);
+//    if (connection) connection.end();
+//    return [rows, null];
+// }
+
+function makeJWT(data) {
+   return jwt.sign(data, jwtSecret, { expiresIn: '1h' });
+}
+
 module.exports = {
    getSqlData,
+   makeJWT,
 };
