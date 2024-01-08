@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const adsRouter = require('./routes/ads');
 
 const app = express();
 
@@ -13,9 +14,12 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.json('Hello World!');
+   res.json('Hello World!');
 });
 
+// ADS Routes
+app.use('/', adsRouter);
+
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+   console.log(`Server is listening on port ${port}`);
 });
