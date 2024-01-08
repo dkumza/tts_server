@@ -1,8 +1,11 @@
 ### main  page
 GET http://localhost:3000/
 
-### Create post
-POST http://localhost:3000/api/all_ads
+### get all ads 
+GET http://localhost:3000/api/ads
+
+### Create ad
+POST http://localhost:3000/api/ads
 Content-Type:  application/json
 
 {
@@ -11,4 +14,19 @@ Content-Type:  application/json
     "date": "2022-07-07",
     "content": "Text Area of text",
     "cat_id": 1
+}
+
+### Delete ad by ID
+DELETE  http://localhost:3000/api/ads/1
+
+### Edit AD
+PUT http://localhost:3000/api/ads/2
+Content-Type:  application/json
+
+{
+    "title": "Edited Post1",
+    "author": "Edited Auth",
+    "date": "2011-11-11",
+    "content": "Text Area of text",
+    "cat_id": 3
 }
