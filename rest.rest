@@ -15,23 +15,27 @@ Content-Type:  application/json
     "title": "Post 1",
     "author": "Author 1",
     "date": "2022-07-07",
-    "content": "Text Area of text",
-    "cat_id": 1
+    "content": "Test content",
+    "cat_id": 1001,
+    "price": 20,
+    "sub_id": 4001
 }
 
 ### Delete ad by ID
-DELETE  http://localhost:3000/api/ads/1
+DELETE  http://localhost:3000/api/ads/11
 
 ### Edit AD
-PUT http://localhost:3000/api/ads/2
+PUT http://localhost:3000/api/ads/12
 Content-Type:  application/json
 
 {
-    "title": "Edited Post1",
-    "author": "Edited Auth",
-    "date": "2011-11-11",
-    "content": "Text Area of text",
-    "cat_id": 3
+    "title": "Edited Post 1",
+    "author": "Author 1",
+    "date": "2022-07-07",
+    "content": "Test content",
+    "cat_id": 1001,
+    "price": 201,
+    "sub_id": 4001
 }
 
 ### REGISTER User 
