@@ -9,7 +9,7 @@ const categoriesRouter = express.Router();
 categoriesRouter.get('/api/categories', async (req, res) => {
    const sql = 'SELECT * FROM `categories`';
 
-   const [categoriesArr, error] = await getSqlData(sql);
+   const [categories, error] = await getSqlData(sql);
 
    if (error) {
       console.log('error ===', error);
@@ -17,7 +17,7 @@ categoriesRouter.get('/api/categories', async (req, res) => {
       return;
    }
 
-   res.json(categoriesArr);
+   res.json(categories);
 });
 
 module.exports = categoriesRouter;

@@ -14,12 +14,11 @@ authRouter.post('/api/auth/register', async (req, res, next) => {
 
    if (error) return next(error);
 
-   res.status(201).json(result);
+   res.status(201).json({ msg: 'account has been created', result });
 });
 
 // POST /api/auth/log in - log in user
 authRouter.post('/api/auth/login', async (req, res, next) => {
-   // take email and password from req.body
    const { email, password: plainPsw } = req.body;
    // compare if email exists
    const sql = 'SELECT * FROM `users` WHERE `email`= ?';
@@ -28,12 +27,12 @@ authRouter.post('/api/auth/login', async (req, res, next) => {
    if (error) return next(error);
 
    if (users.length === 0)
-      return res.status(400).json('email or password do not match');
+      return res.status(400).json({ msg: 'email or password do not match' });
 
    const userExists = users[0];
    // user found, then compare if password matches
    if (!bcrypt.compareSync(plainPsw, userExists.password)) {
-      next({ message: 'email or password do not match', status: 400 });
+      next({ msg: 'email or password do not match', status: 400 });
       return;
    }
 

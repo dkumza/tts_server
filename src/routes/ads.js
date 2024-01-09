@@ -45,7 +45,7 @@ adsRouter.post('/api/ads/', async (req, res, next) => {
    if (error) return next(error);
 
    if (postsArr.affectedRows === 1)
-      res.json({ msg: `New AD Created successfully` });
+      res.json({ msg: `New ad created successfully` });
 });
 
 // DELETE /api/all_ads/:ad_id by ad ID
@@ -58,12 +58,12 @@ adsRouter.delete('/api/ads/:id', async (req, res, next) => {
    if (error) return next(error);
 
    if (postsArr.affectedRows === 1)
-      return res.json({ msg: `post with id ${id} was deleted` });
+      return res.json({ msg: `ad with id ${id} was deleted` });
 
    if (postsArr.affectedRows === 0)
       return res
          .status(500)
-         .json(`DELETE AD with ID ${id} was unsuccessfully. Check ID`);
+         .json({ msg: `DELETE ad with ID ${id} was unsuccessfully. Check ID` });
 });
 
 // UPDATE by ID
@@ -93,9 +93,9 @@ adsRouter.put('/api/ads/:id', async (req, res, next) => {
       });
 
    if (postsArr.affectedRows === 0)
-      return res
-         .status(500)
-         .json(`UPDATE Post with ID ${id} was unsuccessfully. Check ID`);
+      return res.status(500).json({
+         msg: `UPDATE ad with ID ${id} was unsuccessfully. Check ID`,
+      });
 });
 
 module.exports = adsRouter;
