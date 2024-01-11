@@ -7,6 +7,7 @@ const authRouter = express.Router();
 
 // POST /api/auth/register - register user
 authRouter.post('/api/auth/register', async (req, res, next) => {
+   console.log(req.body);
    const { email, username, password } = req.body;
    const hashPsw = bcrypt.hashSync(password, 10);
    const sql = 'INSERT INTO users (email, username, password) VALUES (?,?,?)';
@@ -42,6 +43,7 @@ authRouter.post('/api/auth/login', async (req, res, next) => {
 
    res.json({
       msg: 'login success',
+      username: userExists.username,
       token,
    });
 });

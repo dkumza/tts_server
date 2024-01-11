@@ -12,12 +12,12 @@ POST http://localhost:3000/api/ads
 Content-Type:  application/json
 
 {
-    "title": "Post 1",
-    "author": "Author 1",
+    "title": "RTX3080 Ti",
+    "username": "skirma",
     "date": "2022-07-07",
-    "content": "Test content",
+    "content": "used GPU",
     "cat_id": 1001,
-    "price": 20,
+    "price": 450,
     "sub_id": 4001
 }
 

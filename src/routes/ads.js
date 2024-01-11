@@ -23,19 +23,19 @@ adsRouter.get('/api/ads', async (req, res, next) => {
    res.json(postsArr);
 });
 
-// CREATE /api/post/ - create new post
-// INSERT INTO posts (title, author, date, content) VALUES (?, ?, ?, ?)
+// CREATE /api/ads/ - create new ad
+// INSERT INTO ads (title, author, date, content) VALUES (?, ?, ?, ?)
 adsRouter.post('/api/ads/', async (req, res, next) => {
-   const { title, author, date, content, cat_id, price, sub_id } = req.body;
+   const { title, username, date, content, cat_id, price, sub_id } = req.body;
 
    const sql = `
-     INSERT INTO all_ads (title, author, date, content, cat_id, price, sub_id) 
+     INSERT INTO all_ads (title, username, date, content, cat_id, price, sub_id) 
      VALUES (?,?,?,?,?,?,?)
      `;
 
    const [postsArr, error] = await getSqlData(sql, [
       title,
-      author,
+      username,
       date,
       content,
       cat_id,
