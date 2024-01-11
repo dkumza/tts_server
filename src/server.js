@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
    switch (err.code) {
       case 'ER_DUP_ENTRY':
          res.status(400);
-         res.json({ msg: 'email already in use' });
+         res.json({ msg: 'Email already in use' });
          return;
       case 'ER_NO_SUCH_TABLE':
          res.status(400);
