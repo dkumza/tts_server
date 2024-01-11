@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const Yup = require('yup');
+
 const { jwtSecret } = require('./cfg');
 
 function authToken(req, res, next) {
@@ -16,6 +18,35 @@ function authToken(req, res, next) {
    }
 }
 
+const loginValidation = async (req, res, next) => {
+   console.log(req.body);
+
+   const loginSchema = Yup.object({
+      email: Yup.string()
+         .trim()
+         .required('*Email is required')
+         .email('*Email must be valid email'),
+      password: Yup.string()
+         .trim()
+         .min(6, '*Password must be at least 6 characters long')
+         .required('*Password is required'),
+   });
+
+   try {
+      const user = await loginSchema.validate(req.body, { abortEarly: false }); //abortEarly to show all validation msgs
+      console.log('user', user);
+      next();
+   } catch (error) {
+      console.log(error);
+      const errorObject = {};
+      error.inner.forEach((err) => {
+         errorObject[err.path] = err.message;
+      });
+      res.status(400).json(errorObject);
+   }
+};
+
 module.exports = {
    authToken,
+   loginValidation,
 };

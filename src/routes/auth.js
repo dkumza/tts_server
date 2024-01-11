@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 
 const { getSqlData, makeJWT } = require('../utils/helper');
+const { loginValidation } = require('../middleware');
 
 const authRouter = express.Router();
 
@@ -19,7 +20,7 @@ authRouter.post('/api/auth/register', async (req, res, next) => {
 });
 
 // POST /api/auth/log in - log in user
-authRouter.post('/api/auth/login', async (req, res, next) => {
+authRouter.post('/api/auth/login', loginValidation, async (req, res, next) => {
    const { email, password: plainPsw } = req.body;
    // compare if email exists
    const sql = 'SELECT * FROM `users` WHERE `email`= ?';
@@ -28,12 +29,12 @@ authRouter.post('/api/auth/login', async (req, res, next) => {
    if (error) return next(error);
 
    if (users.length === 0)
-      return res.status(400).json({ msg: 'email or password do not match' });
+      return res.status(400).json({ msg: 'Email or password do not match' });
 
    const userExists = users[0];
    // user found, then compare if password matches
    if (!bcrypt.compareSync(plainPsw, userExists.password)) {
-      next({ msg: 'email or password do not match', status: 400 });
+      next({ msg: 'Email or password do not match', status: 400 });
       return;
    }
 
