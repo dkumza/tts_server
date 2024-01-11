@@ -43,7 +43,9 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-"email": "james@secure.com", "password": "123456"
+"username": "test1", 
+"email": "test1@secure.com", 
+"password": "123456"
 }
 
 ### LOGIN User 
@@ -51,5 +53,6 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-"email": "james@secure.com", "password": "123456"
+"email": "test1@secure.com", 
+"password": "123456"
 }
