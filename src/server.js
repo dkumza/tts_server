@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const adsRouter = require('./routes/ads');
+const adsRouter = require('./routes/products');
 const categoriesRouter = require('./routes/categories');
 const { authPlugins } = require('mysql2');
 const authRouter = require('./routes/auth');

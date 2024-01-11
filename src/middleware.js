@@ -52,6 +52,26 @@ const signUpSchema = Yup.object({
    //    .required('*Password is required'),
 });
 
+const productSchema = Yup.object({
+   cat_id: Yup.number('TEST').min(1, '*Category is required'),
+   title: Yup.string()
+      .trim()
+      .min(3, '*Title must be at least 3 characters long')
+      .required('*Title is required'),
+   username: Yup.string()
+      .trim()
+      .min(3, '*Username name must be at least 3 characters long')
+      .required('*Sellers Name is required'),
+   content: Yup.string()
+      .trim()
+      .min(6, '*About must be at least 6 characters long')
+      .required('*About is required'),
+   price: Yup.number()
+      .required('*Price is required')
+      .positive('*Price must be a positive number')
+      .integer('*Price must be integer'),
+});
+
 const validationMiddleware = (schema) => {
    return async (req, res, next) => {
       try {
@@ -63,6 +83,9 @@ const validationMiddleware = (schema) => {
          const errorObject = {};
          error.inner.forEach((err) => {
             errorObject[err.path] = err.message;
+            if (err.path === 'cat_id') {
+               errorObject[err.path] = '*Select category is required';
+            }
          });
          res.status(400).json(errorObject);
       }
@@ -71,9 +94,11 @@ const validationMiddleware = (schema) => {
 
 const loginValidation = validationMiddleware(loginSchema);
 const signUpValidation = validationMiddleware(signUpSchema);
+const productValidation = validationMiddleware(productSchema);
 
 module.exports = {
    authToken,
    loginValidation,
    signUpValidation,
+   productValidation,
 };

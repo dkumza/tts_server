@@ -12,13 +12,13 @@ POST http://localhost:3000/api/ads
 Content-Type:  application/json
 
 {
-    "title": "RTX3080 Ti",
+    "title": "",
     "username": "skirma",
-    "date": "2022-07-07",
-    "content": "used GPU",
-    "cat_id": 1001,
+    "date": "",
+    "content": "",
+    "cat_id": "",
     "price": 450,
-    "sub_id": 4001
+  
 }
 
 ### Delete ad by ID

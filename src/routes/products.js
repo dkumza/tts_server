@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const { getSqlData } = require('../utils/helper');
+const { productValidation } = require('../middleware');
 
 // create Route - ads
 const adsRouter = express.Router();
@@ -25,12 +26,12 @@ adsRouter.get('/api/ads', async (req, res, next) => {
 
 // CREATE /api/ads/ - create new ad
 // INSERT INTO ads (title, author, date, content) VALUES (?, ?, ?, ?)
-adsRouter.post('/api/ads/', async (req, res, next) => {
-   const { title, username, date, content, cat_id, price, sub_id } = req.body;
+adsRouter.post('/api/ads/', productValidation, async (req, res, next) => {
+   const { title, username, date, content, cat_id, price } = req.body;
 
    const sql = `
-     INSERT INTO all_ads (title, username, date, content, cat_id, price, sub_id) 
-     VALUES (?,?,?,?,?,?,?)
+     INSERT INTO all_ads (title, username, date, content, cat_id, price) 
+     VALUES (?,?,?,?,?,?)
      `;
 
    const [postsArr, error] = await getSqlData(sql, [
@@ -40,13 +41,11 @@ adsRouter.post('/api/ads/', async (req, res, next) => {
       content,
       cat_id,
       price,
-      sub_id,
    ]);
 
    if (error) return next(error);
 
-   if (postsArr.affectedRows === 1)
-      res.json({ msg: `New ad created successfully` });
+   if (postsArr.affectedRows === 1) res.json({ msg: `Published successfully` });
 });
 
 // DELETE /api/all_ads/:ad_id by ad ID
