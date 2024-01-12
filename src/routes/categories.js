@@ -4,8 +4,8 @@ const { getSqlData } = require('../utils/helper');
 const categoriesRouter = express.Router();
 
 // routes
-// GET /api/categories - get all categories
 
+// GET /api/categories - get all categories
 categoriesRouter.get('/api/categories', async (req, res) => {
    const sql = 'SELECT * FROM `categories`';
 

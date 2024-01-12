@@ -2,13 +2,19 @@
 GET http://localhost:3000/
 
 ### get all products
-GET http://localhost:3000/api/ads
+GET http://localhost:3000/api/products
+
+### get single product by id
+GET http://localhost:3000/api/products/1
 
 ### get all categories
 GET http://localhost:3000/api/categories
 
+### get products by category ID
+GET http://localhost:3000/api/products/category/1
+
 ### Create product
-POST http://localhost:3000/api/ads
+POST http://localhost:3000/api/products
 Content-Type:  application/json
 
 {
@@ -23,10 +29,10 @@ Content-Type:  application/json
 }
 
 ### Delete ad by ID
-DELETE  http://localhost:3000/api/ads/11
+DELETE  http://localhost:3000/api/products/11
 
 ### Edit AD
-PUT http://localhost:3000/api/ads/12
+PUT http://localhost:3000/api/products/12
 Content-Type:  application/json
 
 {

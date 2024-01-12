@@ -24,9 +24,9 @@ adsRouter.get('/api/ads', async (req, res, next) => {
    res.json(postsArr);
 });
 
-// CREATE /api/ads/ - create new ad
+// CREATE /api/products/ - create new ad
 // INSERT INTO ads (title, author, date, content) VALUES (?, ?, ?, ?)
-adsRouter.post('/api/ads/', productValidation, async (req, res, next) => {
+adsRouter.post('/api/products/', productValidation, async (req, res, next) => {
    const { title, username, date, content, cat_id, price, p_condition } =
       req.body;
    console.log('body: ', req.body);
@@ -51,8 +51,29 @@ adsRouter.post('/api/ads/', productValidation, async (req, res, next) => {
    if (postsArr.affectedRows === 1) res.json({ msg: `Published successfully` });
 });
 
-// DELETE /api/all_ads/:ad_id by ad ID
-adsRouter.delete('/api/ads/:id', async (req, res, next) => {
+// GET /api/products/:id - get single product
+
+adsRouter.get('/api/products/:id', async (req, res, next) => {
+   const { id } = req.params;
+
+   const sql = 'SELECT * FROM all_ads WHERE id=?';
+   const [postsArr, error] = await getSqlData(sql, [id]);
+
+   if (error) return next(error);
+
+   if (postsArr.length === 1) {
+      res.json(postsArr[0]);
+      return;
+   }
+   if (postsArr.length === 0) {
+      next({ msg: 'Product not found, check ID', status: 404 });
+      return;
+   }
+   res.status(400).json(postsArr);
+});
+
+// DELETE /api/products/:id by ad ID
+adsRouter.delete('/api/products/:id', async (req, res, next) => {
    const { id } = req.params;
    const sql = 'DELETE FROM all_ads WHERE id=? LIMIT 1';
    const [postsArr, error] = await getSqlData(sql, [id]);
@@ -69,8 +90,8 @@ adsRouter.delete('/api/ads/:id', async (req, res, next) => {
 });
 
 // UPDATE by ID
-// PUT /api/post/:postID - edit post by ID
-adsRouter.put('/api/ads/:id', async (req, res, next) => {
+// PUT /api/post/:id - edit post by ID
+adsRouter.put('/api/products/:id', async (req, res, next) => {
    const { id } = req.params;
    const { title, author, date, content, cat_id, price, sub_id } = req.body;
 
@@ -100,6 +121,26 @@ adsRouter.put('/api/ads/:id', async (req, res, next) => {
       return res.status(500).json({
          msg: `UPDATE ad with ID ${id} was unsuccessfully. Check ID`,
       });
+});
+
+// GET /api/categories/:id - get products by category ID
+adsRouter.get('/api/products/category/:cat_id', async (req, res) => {
+   const { cat_id } = req.params;
+   const sql = `SELECT * FROM all_ads WHERE cat_id = ?`;
+
+   const [products, error] = await getSqlData(sql, [cat_id]);
+
+   if (error) return next(error);
+
+   if (products.length === 1) {
+      res.json(products[0]);
+      return;
+   }
+   if (products.length === 0) {
+      next({ msg: 'Product not found, check ID', status: 404 });
+      return;
+   }
+   res.status(400).json(products);
 });
 
 module.exports = adsRouter;
