@@ -27,11 +27,13 @@ adsRouter.get('/api/ads', async (req, res, next) => {
 // CREATE /api/ads/ - create new ad
 // INSERT INTO ads (title, author, date, content) VALUES (?, ?, ?, ?)
 adsRouter.post('/api/ads/', productValidation, async (req, res, next) => {
-   const { title, username, date, content, cat_id, price } = req.body;
+   const { title, username, date, content, cat_id, price, p_condition } =
+      req.body;
+   console.log('body: ', req.body);
 
    const sql = `
-     INSERT INTO all_ads (title, username, date, content, cat_id, price) 
-     VALUES (?,?,?,?,?,?)
+     INSERT INTO all_ads (title, username, date, content, cat_id, price, p_condition) 
+     VALUES (?,?,?,?,?,?,?)
      `;
 
    const [postsArr, error] = await getSqlData(sql, [
@@ -41,6 +43,7 @@ adsRouter.post('/api/ads/', productValidation, async (req, res, next) => {
       content,
       cat_id,
       price,
+      p_condition,
    ]);
 
    if (error) return next(error);

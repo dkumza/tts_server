@@ -1,23 +1,24 @@
 ### main  page
 GET http://localhost:3000/
 
-### get all ads 
+### get all products
 GET http://localhost:3000/api/ads
 
 ### get all categories
 GET http://localhost:3000/api/categories
 
-### Create ad
+### Create product
 POST http://localhost:3000/api/ads
 Content-Type:  application/json
 
 {
-    "title": "",
+    "title": "MacBook Pro M2",
     "username": "skirma",
-    "date": "",
-    "content": "",
-    "cat_id": "",
-    "price": 450,
+    "date": "2024-01-12",
+    "content": "new laptop",
+    "cat_id": "3",
+    "price": 3000,
+    "p_condition": "new"
   
 }
 

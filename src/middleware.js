@@ -70,6 +70,9 @@ const productSchema = Yup.object({
       .required('*Price is required')
       .positive('*Price must be a positive number')
       .integer('*Price must be integer'),
+   p_condition: Yup.string()
+      .required('*Condition is required')
+      .oneOf(['new', 'used'], '*Condition must be either "new" or "used"'),
 });
 
 const validationMiddleware = (schema) => {
