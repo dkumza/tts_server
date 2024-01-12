@@ -130,6 +130,7 @@ adsRouter.get('/api/products/category/:cat_id', async (req, res) => {
    const sql = `SELECT * FROM all_ads WHERE cat_id = ?`;
 
    const [products, error] = await getSqlData(sql, [cat_id]);
+   console.log(products);
 
    if (error) return next(error);
 
@@ -138,10 +139,12 @@ adsRouter.get('/api/products/category/:cat_id', async (req, res) => {
       return;
    }
    if (products.length === 0) {
-      next({ msg: 'Product not found, check ID', status: 404 });
+      res.status(404).json({ msg: 'Product not found, check ID' });
       return;
    }
-   res.status(400).json(products);
 });
+
+//GET - Search by word in title or content
+// SELECT * FROM `all_ads` WHERE `title` REGEXP 'pc' OR `content` REGEXP 'pc';
 
 module.exports = adsRouter;
