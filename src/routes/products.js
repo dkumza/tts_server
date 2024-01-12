@@ -126,14 +126,15 @@ adsRouter.put('/api/products/:id', async (req, res, next) => {
 // GET /api/categories/:id - get products by category ID
 adsRouter.get('/api/products/category/:cat_id', async (req, res) => {
    const { cat_id } = req.params;
+   console.log(req.params);
    const sql = `SELECT * FROM all_ads WHERE cat_id = ?`;
 
    const [products, error] = await getSqlData(sql, [cat_id]);
 
    if (error) return next(error);
 
-   if (products.length === 1) {
-      res.json(products[0]);
+   if (products.length > 0) {
+      res.json(products);
       return;
    }
    if (products.length === 0) {
