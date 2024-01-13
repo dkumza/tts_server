@@ -7,7 +7,7 @@ const { productValidation } = require('../middleware');
 const adsRouter = express.Router();
 
 // GET /api/ads - get all Ads by params
-adsRouter.get('/api/ads', async (req, res, next) => {
+adsRouter.get('/api/products', async (req, res, next) => {
    const sql = 'SELECT * FROM all_ads';
    // const sql = `
    // SELECT all_ads.id, all_ads.title, all_ads.author, all_ads.content, all_ads.date,
@@ -146,5 +146,23 @@ adsRouter.get('/api/products/category/:cat_id', async (req, res) => {
 
 //GET - Search by word in title or content
 // SELECT * FROM `all_ads` WHERE `title` REGEXP 'pc' OR `content` REGEXP 'pc';
+adsRouter.get('/api/search/:item', async (req, res, next) => {
+   const { item } = req.params;
+   console.log(item);
+   const sql = `SELECT * FROM all_ads WHERE title REGEXP ? OR content REGEXP ?;`;
+   const [products, error] = await getSqlData(sql, [item, item]);
+   console.log(products);
+
+   if (error) return next(error);
+
+   if (products.length > 0) {
+      res.json(products);
+      return;
+   }
+   if (products.length === 0) {
+      res.status(404).json({ msg: 'Products not found' });
+      return;
+   }
+});
 
 module.exports = adsRouter;

@@ -45,6 +45,10 @@ Content-Type:  application/json
     "sub_id": 4001
 }
 
+### Search products
+GET http://localhost:3000/api/search/gpu
+
+
 ### REGISTER User 
 POST http://localhost:3000/api/auth/register 
 Content-Type: application/json
