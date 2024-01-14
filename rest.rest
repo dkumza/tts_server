@@ -5,13 +5,16 @@ GET http://localhost:3000/
 GET http://localhost:3000/api/products
 
 ### get single product by id
-GET http://localhost:3000/api/products/1
+GET http://localhost:3000/api/products/
 
 ### get all categories
 GET http://localhost:3000/api/categories
 
 ### get products by category ID
-GET http://localhost:3000/api/products/category/4
+GET http://localhost:3000/api/products/category/1
+
+### sort products by date desc
+GET http://localhost:3000/api/sort/date
 
 ### Create product
 POST http://localhost:3000/api/products
@@ -45,7 +48,7 @@ Content-Type:  application/json
     "sub_id": 4001
 }
 
-### Search products
+### Search products by string
 GET http://localhost:3000/api/search/gpu
 
 

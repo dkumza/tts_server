@@ -8,16 +8,15 @@ const adsRouter = express.Router();
 
 // GET /api/ads - get all Ads by params
 adsRouter.get('/api/products', async (req, res, next) => {
-   const sql = 'SELECT * FROM all_ads';
-   // const sql = `
-   // SELECT all_ads.id, all_ads.title, all_ads.author, all_ads.content, all_ads.date,
-   // categories.name AS categories_name
-   // FROM all_ads
-   // JOIN categories
-   // ON all_ads.cat_id=categories.id
-   // GROUP BY all_ads.id
-   // `;
-
+   // const sql = 'SELECT * FROM all_ads';
+   const sql = `
+   SELECT all_ads.id, all_ads.cat_id, all_ads.title, all_ads.username, all_ads.content, all_ads.date, all_ads.price, all_ads.p_condition,
+   categories.cat_name AS cat_name
+   FROM all_ads
+   JOIN categories
+   ON all_ads.cat_id=categories.cat_id
+   GROUP BY all_ads.id
+   `;
    const [postsArr, error] = await getSqlData(sql); //getting POST and ERROR from helper by passing sql param
 
    if (error) return next(error);
@@ -29,7 +28,6 @@ adsRouter.get('/api/products', async (req, res, next) => {
 adsRouter.post('/api/products/', productValidation, async (req, res, next) => {
    const { title, username, date, content, cat_id, price, p_condition } =
       req.body;
-   console.log('body: ', req.body);
 
    const sql = `
      INSERT INTO all_ads (title, username, date, content, cat_id, price, p_condition) 
@@ -52,11 +50,20 @@ adsRouter.post('/api/products/', productValidation, async (req, res, next) => {
 });
 
 // GET /api/products/:id - get single product
-
 adsRouter.get('/api/products/:id', async (req, res, next) => {
    const { id } = req.params;
 
-   const sql = 'SELECT * FROM all_ads WHERE id=?';
+   // const sql = 'SELECT * FROM all_ads WHERE id=?';
+   const sql = `
+   SELECT all_ads.id, all_ads.cat_id, all_ads.title, all_ads.username, all_ads.content, all_ads.date, all_ads.price, all_ads.p_condition,
+   categories.cat_name AS cat_name
+   FROM all_ads
+   JOIN categories
+   ON all_ads.cat_id=categories.cat_id
+   WHERE all_ads.id = ?
+   GROUP BY all_ads.id
+   `;
+
    const [postsArr, error] = await getSqlData(sql, [id]);
 
    if (error) return next(error);
@@ -126,11 +133,18 @@ adsRouter.put('/api/products/:id', async (req, res, next) => {
 // GET /api/categories/:id - get products by category ID
 adsRouter.get('/api/products/category/:cat_id', async (req, res) => {
    const { cat_id } = req.params;
-   console.log(req.params);
-   const sql = `SELECT * FROM all_ads WHERE cat_id = ?`;
+   // const sql = `SELECT * FROM all_ads WHERE cat_id = ?`;
+   const sql = `
+   SELECT all_ads.id, all_ads.cat_id, all_ads.title, all_ads.username, all_ads.content, all_ads.date, all_ads.price, all_ads.p_condition,
+   categories.cat_name AS cat_name
+   FROM all_ads
+   JOIN categories
+   ON all_ads.cat_id=categories.cat_id
+   WHERE all_ads.cat_id = ?
+   GROUP BY all_ads.id
+   `;
 
    const [products, error] = await getSqlData(sql, [cat_id]);
-   console.log(products);
 
    if (error) return next(error);
 
@@ -145,13 +159,46 @@ adsRouter.get('/api/products/category/:cat_id', async (req, res) => {
 });
 
 //GET - Search by word in title or content
-// SELECT * FROM `all_ads` WHERE `title` REGEXP 'pc' OR `content` REGEXP 'pc';
 adsRouter.get('/api/search/:item', async (req, res, next) => {
    const { item } = req.params;
-   console.log(item);
-   const sql = `SELECT * FROM all_ads WHERE title REGEXP ? OR content REGEXP ?;`;
+   // const sql = `SELECT * FROM all_ads WHERE title REGEXP ? OR content REGEXP ?;`;
+   const sql = `
+   SELECT all_ads.id, all_ads.cat_id, all_ads.title, all_ads.username, all_ads.content, all_ads.date, all_ads.price, all_ads.p_condition,
+   categories.cat_name AS cat_name
+   FROM all_ads 
+   JOIN categories
+   ON all_ads.cat_id=categories.cat_id
+   WHERE title REGEXP ? OR content REGEXP ?
+   GROUP BY all_ads.id
+   `;
    const [products, error] = await getSqlData(sql, [item, item]);
-   console.log(products);
+
+   if (error) return next(error);
+
+   if (products.length > 0) {
+      res.json(products);
+      return;
+   }
+   if (products.length === 0) {
+      res.status(404).json({ msg: 'Products not found' });
+      return;
+   }
+});
+
+//  Sort products by date asc
+//  SELECT * FROM `all_ads` ORDER BY `date` ASC
+adsRouter.get('/api/sort/date', async (req, res, next) => {
+   const sql = `SELECT * FROM all_ads ORDER BY date DESC`;
+   // const sql = `
+   // SELECT all_ads.id, all_ads.cat_id, all_ads.title, all_ads.username, all_ads.content, all_ads.date, all_ads.price, all_ads.p_condition,
+   // categories.cat_name AS cat_name
+   // FROM all_ads
+   // JOIN categories
+   // ON all_ads.cat_id=categories.cat_id
+   // WHERE all_ads.cat_id = ?
+   // GROUP BY all_ads.id
+   // `;
+   const [products, error] = await getSqlData(sql);
 
    if (error) return next(error);
 
