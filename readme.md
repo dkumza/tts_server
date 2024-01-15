@@ -24,5 +24,5 @@ You need local setup of SQL DB <br>
 To install the application, follow these steps:
 
 1. Clone the repository.
-2. Navigate to the `TTS_SERVER` folder and run `npm install` to install the server dependencies.
+2. Navigate to the `tts_server` folder and run `npm install` to install the server dependencies.
 3. ~~Import "ads.sql" to your local SQL server.~~
