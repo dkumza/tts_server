@@ -23,13 +23,18 @@ module.exports.login = async (req, res, next) => {
   if (error) return next(error);
 
   if (users.length === 0) {
-    return res.status(400).json({ msg: 'Email or password do not match' });
+    return res.status(400).json({
+      msg: 'Email or password do not match',
+    });
   }
 
   const userExists = users[0];
   // user found, then compare if password matches
   if (!bcrypt.compareSync(plainPsw, userExists.password)) {
-    return next({ msg: 'Email or password do not match', status: 400 });
+    return next({
+      msg: 'Email or password do not match',
+      status: 400,
+    });
   }
 
   //  generate session token for founded user ID

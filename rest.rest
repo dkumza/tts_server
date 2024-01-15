@@ -32,7 +32,7 @@ Content-Type:  application/json
 }
 
 ### Delete ad by ID
-DELETE  http://localhost:3000/api/products/27
+DELETE  http://localhost:3000/api/products/28
 
 ### Edit AD
 PUT http://localhost:3000/api/products/12
@@ -69,4 +69,16 @@ Content-Type: application/json
 {
 "email": "test@test2.lt", 
 "password": "123456"
+}
+
+### get all product comments
+GET http://localhost:3000/api/comments/product/1
+
+### get all posts comments
+POST http://localhost:3000/api/comments/product/1
+Content-Type:  application/json
+
+{
+  "comm_author": "skirma",
+  "comm_context": "Labai informatyvu, labai...."
 }

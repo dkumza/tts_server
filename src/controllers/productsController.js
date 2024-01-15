@@ -1,5 +1,3 @@
-const { getSqlData } = require('../utils/helper');
-
 const productsModels = require('../models/productsModels');
 
 module.exports.getAll = async (req, res, next) => {
@@ -11,9 +9,7 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
-  const {
-    title, username, date, content, cat_id, price, p_condition,
-  } = req.body;
+  const { title, username, date, content, cat_id, price, p_condition } = req.body;
 
   const [postsArr, error] = await productsModels.createProduct([
     title,
@@ -55,19 +51,19 @@ module.exports.delete = async (req, res, next) => {
   if (error) return next(error);
 
   if (postsArr.affectedRows === 1) {
-    return res.json({ msg: `ad with id ${id} was deleted` });
+    return res.json({ msg: `Product with id ${id} was deleted` });
   }
 
   if (postsArr.affectedRows === 0) {
-    return res.status(500).json({ msg: `DELETE ad with ID ${id} was unsuccessfully. Check ID` });
+    return res
+      .status(500)
+      .json({ msg: `DELETE product with ID ${id} was unsuccessfully. Check ID` });
   }
 };
 
 module.exports.edit = async (req, res, next) => {
   const { id } = req.params;
-  const {
-    title, author, date, content, cat_id, price, sub_id,
-  } = req.body;
+  const { title, author, date, content, cat_id, price, sub_id } = req.body;
 
   const [postsArr, error] = await productsModels.editProduct([
     title,

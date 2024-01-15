@@ -6,6 +6,7 @@ const cors = require('cors');
 const adsRouter = require('./routes/products');
 const categoriesRouter = require('./routes/categories');
 const authRouter = require('./routes/auth');
+const commRouter = require('./routes/comments');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/', adsRouter);
 app.use('/', categoriesRouter);
 app.use('/', authRouter);
+app.use('/', commRouter);
 
 // ERROR HANDLER
 app.use((err, req, res, next) => {
