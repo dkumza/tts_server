@@ -5,17 +5,17 @@ const { dbConfig, jwtSecret } = require('../cfg');
 const pool = mysql.createPool(dbConfig);
 
 async function getSqlData(sql, argArr = []) {
-   let connection;
-   try {
-      connection = await pool.getConnection(); // connecting to DB
-      const [rows] = await connection.execute(sql, argArr); // execute task
-      return [rows, null];
-   } catch (error) {
-      console.error('getSqlData', error);
-      return [null, error];
-   } finally {
-      if (connection) connection.release();
-   }
+  let connection;
+  try {
+    connection = await pool.getConnection(); // connecting to DB
+    const [rows] = await connection.execute(sql, argArr); // execute task
+    return [rows, null];
+  } catch (error) {
+    console.error('getSqlData', error);
+    return [null, error];
+  } finally {
+    if (connection) connection.release();
+  }
 }
 
 // async function getSqlDataNoTry(sql, argArr = []) {
@@ -27,10 +27,10 @@ async function getSqlData(sql, argArr = []) {
 // }
 
 function makeJWT(data) {
-   return jwt.sign(data, jwtSecret, { expiresIn: '1h' });
+  return jwt.sign(data, jwtSecret, { expiresIn: '1h' });
 }
 
 module.exports = {
-   getSqlData,
-   makeJWT,
+  getSqlData,
+  makeJWT,
 };

@@ -5,7 +5,7 @@ GET http://localhost:3000/
 GET http://localhost:3000/api/products
 
 ### get single product by id
-GET http://localhost:3000/api/products/
+GET http://localhost:3000/api/products/2
 
 ### get all categories
 GET http://localhost:3000/api/categories
@@ -32,7 +32,7 @@ Content-Type:  application/json
 }
 
 ### Delete ad by ID
-DELETE  http://localhost:3000/api/products/11
+DELETE  http://localhost:3000/api/products/27
 
 ### Edit AD
 PUT http://localhost:3000/api/products/12

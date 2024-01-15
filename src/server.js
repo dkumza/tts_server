@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const { authPlugins } = require('mysql2');
 const adsRouter = require('./routes/products');
 const categoriesRouter = require('./routes/categories');
 const authRouter = require('./routes/auth');
