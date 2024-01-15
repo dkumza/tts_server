@@ -1,15 +1,19 @@
-## AD Portal
+## Tech Trade Swap DB
 
-Express server that handles APIs requests from SQL (CRUD)
+Express server that handles APIs requests from SQL (CRUD). With JWT, bcrypt, yup and more.
 
 ### SERVER SIDE
 
 The server is built with Express.js, SQL and provides the following endpoints:
 
--  `GET /api/ads`: Fetches all ads from the database.
--  `DELETE /api/ads/:id`: Deletes a ad with the specified ID from the database.
--  `POST /api/ads`: Adds a new ad to the database.
--  `PUT /api/ads/:adID`: Updates the ad with the specified ID in the database.
+-  `GET /api/products`: Fetches all products from the database.
+-  `POST /api/products`: Adds a new product to the database.
+-  `GET /api/products/:id`: GET a single product with the specified ID from the database.
+-  `DELETE /api/products/:id`: Deletes a product with the specified ID from the database.
+-  `PUT /api/products/:id`: Updates the product with the specified ID in the database.
+-  `GET /api/products/category/:cat_id`: GET all products by specified category ID from the database.
+-  `GET /api/search/:item`: GET all products by specified word from the database.
+-  And many more...
 
 ~~You can import "ads.sql" file from "./server/src/db" to your database and test it locally.~~
 
@@ -20,5 +24,5 @@ You need local setup of SQL DB <br>
 To install the application, follow these steps:
 
 1. Clone the repository.
-2. Navigate to the `ADS_SERVER` folder and run `npm install` to install the server dependencies.
+2. Navigate to the `TTS_SERVER` folder and run `npm install` to install the server dependencies.
 3. ~~Import "ads.sql" to your local SQL server.~~
