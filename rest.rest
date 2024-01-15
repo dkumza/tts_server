@@ -67,6 +67,6 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-"email": "test1@secure.lt", 
+"email": "test@test2.lt", 
 "password": "123456"
 }

@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+
+const { authPlugins } = require('mysql2');
 const adsRouter = require('./routes/products');
 const categoriesRouter = require('./routes/categories');
-const { authPlugins } = require('mysql2');
 const authRouter = require('./routes/auth');
 
 const app = express();
@@ -17,7 +18,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.get('/', (req, res) => {
-   res.json('Hello World!');
+  res.json('Hello World!');
 });
 
 // ADS Routes
@@ -27,30 +28,30 @@ app.use('/', authRouter);
 
 // ERROR HANDLER
 app.use((err, req, res, next) => {
-   console.log('<<<<Error handling>>>>>');
+  console.log('<<<<Error handling>>>>>');
 
-   console.log('err ===', err);
+  console.log('err ===', err);
 
-   if (err.status) {
-      return res.status(err.status).json({ error: err.message });
-   }
+  if (err.status) {
+    return res.status(err.status).json({ error: err.message });
+  }
 
-   switch (err.code) {
-      case 'ER_DUP_ENTRY':
-         res.status(400);
-         res.json({ msg: 'Email already in use' });
-         return;
-      case 'ER_NO_SUCH_TABLE':
-         res.status(400);
-         res.json({ msg: err.sqlMessage || 'no such table' });
-         return;
-      default:
-   }
+  switch (err.code) {
+    case 'ER_DUP_ENTRY':
+      res.status(400);
+      res.json({ msg: 'Email already in use' });
+      return;
+    case 'ER_NO_SUCH_TABLE':
+      res.status(400);
+      res.json({ msg: err.sqlMessage || 'no such table' });
+      return;
+    default:
+  }
 
-   res.status(500);
-   res.json('Server error');
+  res.status(500);
+  res.json('Server error');
 });
 
 app.listen(port, () => {
-   console.log(`Server is listening on port ${port}`);
+  console.log(`Server is listening on port ${port}`);
 });
