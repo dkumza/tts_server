@@ -1,6 +1,6 @@
 ## Tech Trade Swap DB
 
-Express server that handles APIs requests from SQL (CRUD). With JWT, bcrypt, yup and more.
+Express server that handles APIs requests from SQL (CRUD). With JWT, bcrypt, yup and more. Client can be found **[HERE](https://github.com/dkumza/tts_client)**
 
 ### SERVER SIDE
 
