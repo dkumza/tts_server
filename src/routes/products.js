@@ -1,5 +1,5 @@
 const express = require('express');
-const { productValidation } = require('../middleware');
+const { productValidation, authToken } = require('../middleware');
 
 const productsController = require('../controllers/productsController');
 
@@ -16,7 +16,7 @@ adsRouter.post('/api/products/', productValidation, productsController.create);
 adsRouter.get('/api/products/:id', productsController.getSingle);
 
 // DELETE /api/products/:id by ad ID
-adsRouter.delete('/api/products/:id', productsController.delete);
+adsRouter.delete('/api/products/:id', authToken, productsController.delete);
 
 // UPDATE by ID
 // PUT /api/post/:id - edit post by ID

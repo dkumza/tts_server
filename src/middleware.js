@@ -6,11 +6,12 @@ const { jwtSecret } = require('./cfg');
 function authToken(req, res, next) {
   console.log('authToken in progress');
   try {
-    console.log('req.headers.authorization ===', req.headers.authorization);
+    console.log('req.headers.authorization: ', req.headers.authorization);
     const token = req.headers.authorization.split(' ')[1];
     if (!token) throw new Error('no token');
     const decoded = jwt.verify(token, jwtSecret);
-    console.log('decoded ===', decoded);
+    req.userID = decoded.sub;
+
     next();
   } catch (error) {
     console.log('error ===', error);
@@ -20,10 +21,7 @@ function authToken(req, res, next) {
 
 // Validation Schemas
 const loginSchema = Yup.object({
-  email: Yup.string()
-    .trim()
-    .required('*Email is required')
-    .email('*Email must be valid email'),
+  email: Yup.string().trim().required('*Email is required').email('*Email must be valid email'),
   password: Yup.string()
     .trim()
     .min(6, '*Password must be at least 6 characters long')
@@ -35,10 +33,7 @@ const signUpSchema = Yup.object({
     .trim()
     .min(3, 'Username must be at least 3 characters long')
     .required('*Username is required'),
-  email: Yup.string()
-    .trim()
-    .required('*Email is required')
-    .email('*Email must be valid email'),
+  email: Yup.string().trim().required('*Email is required').email('*Email must be valid email'),
   password: Yup.string()
     .trim()
     .min(6, '*Password must be at least 6 characters long')

@@ -74,7 +74,7 @@ Content-Type: application/json
 ### get all product comments
 GET http://localhost:3000/api/comments/product/1
 
-### get all posts comments
+### create comment for product with ID
 POST http://localhost:3000/api/comments/product/1
 Content-Type:  application/json
 

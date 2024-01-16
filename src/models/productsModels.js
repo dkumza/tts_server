@@ -80,3 +80,8 @@ module.exports.getProductsByCat = (data) => {
    `;
   return getSqlData(sql, data);
 };
+
+module.exports.checkSingleProductByID = (data) => {
+  const sql = 'SELECT * FROM products WHERE id = ?';
+  return getSqlData(sql, data);
+};

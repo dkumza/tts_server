@@ -46,12 +46,20 @@ module.exports.getSingle = async (req, res, next) => {
 
 module.exports.delete = async (req, res, next) => {
   const { id } = req.params;
+  // validation if product have same user ID
+  const [post] = await productsModels.checkSingleProductByID([id]);
+  console.log(post);
+
+  if (+post[0].user_id !== +req.userID) {
+    return next({ msg: 'Auth Failed, check user ID', status: 401 });
+  }
+
   const [postsArr, error] = await productsModels.deleteProduct([id]);
 
   if (error) return next(error);
 
   if (postsArr.affectedRows === 1) {
-    return res.json({ msg: `Product with id ${id} was deleted` });
+    return res.json({ msg: 'Your product was deleted' });
   }
 
   if (postsArr.affectedRows === 0) {

@@ -34,7 +34,7 @@ app.use((err, req, res, next) => {
   console.log('err ===', err);
 
   if (err.status) {
-    return res.status(err.status).json({ error: err.message });
+    return res.status(err.status).json({ error: err.msg });
   }
 
   switch (err.code) {
