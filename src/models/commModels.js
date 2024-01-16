@@ -7,6 +7,9 @@ module.exports.getCommByID = (data) => {
 };
 
 module.exports.postNewCommByID = (data) => {
-  const sql = 'INSERT INTO `comments` (`comm_author`, `comm_context`, `prod_id`) VALUES (?, ?, ?)';
+  const sql = `
+  INSERT INTO comments (comm_author, comm_context, comm_date, prod_id)
+  VALUES (?, ?, ?, ?)
+  `;
   return getSqlData(sql, data);
 };

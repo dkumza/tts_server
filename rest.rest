@@ -80,5 +80,6 @@ Content-Type:  application/json
 
 {
   "comm_author": "skirma",
-  "comm_context": "Labai informatyvu, labai...."
+  "comm_context": "Labai informatyvu, labai....",
+  "comm_date": "2024-12-24"
 }

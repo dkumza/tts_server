@@ -10,6 +10,9 @@ const commController = require('../controllers/commController');
 commRouter.get('/api/comments/product/:id', commController.getProdComments);
 
 // POST - create new comment by product ID
-commRouter.post('/api/comments/product/:id', commController.createProdComments);
+commRouter.post(
+  '/api/comments/product/:prod_id',
+  commController.createProdComments,
+);
 
 module.exports = commRouter;

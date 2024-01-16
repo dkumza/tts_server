@@ -15,11 +15,12 @@ module.exports.getProdComments = async (req, res, next) => {
 };
 
 module.exports.createProdComments = async (req, res, next) => {
-  const { id } = req.params;
-  console.log('id:', id);
+  const { prod_id } = req.params;
+  console.log(prod_id);
 
-  const { comm_author, comm_context } = req.body;
-  const commData = [comm_author, comm_context, id];
+  const { comm_author, comm_context, comm_date } = req.body;
+  console.log(req.body);
+  const commData = [comm_author, comm_context, comm_date, prod_id];
 
   const [commentsArr, error] = await commModels.postNewCommByID(commData);
 
@@ -28,7 +29,7 @@ module.exports.createProdComments = async (req, res, next) => {
     next('System error');
     return;
   }
-  console.log('commentsArr ===', commentsArr);
+
   if (commentsArr.affectedRows === 1) {
     res
       .status(201)
