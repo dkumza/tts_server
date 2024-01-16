@@ -16,8 +16,8 @@ module.exports.getAllProducts = () => {
 
 module.exports.createProduct = (data) => {
   const sql = `
-  INSERT INTO products (title, username, date, content, cat_id, price, p_condition) 
-  VALUES (?,?,?,?,?,?,?)
+  INSERT INTO products (title, username, date, content, cat_id, price, p_condition, user_id) 
+  VALUES (?,?,?,?,?,?,?,?)
   `;
 
   return getSqlData(sql, data);

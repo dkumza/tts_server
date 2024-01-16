@@ -9,7 +9,9 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
-  const { title, username, date, content, cat_id, price, p_condition } = req.body;
+  const { title, username, date, content, cat_id, price, p_condition } =
+    req.body;
+  const { userID } = req;
 
   const [postsArr, error] = await productsModels.createProduct([
     title,
@@ -19,6 +21,7 @@ module.exports.create = async (req, res, next) => {
     cat_id,
     price,
     p_condition,
+    userID,
   ]);
 
   if (error) return next(error);
@@ -63,9 +66,9 @@ module.exports.delete = async (req, res, next) => {
   }
 
   if (postsArr.affectedRows === 0) {
-    return res
-      .status(500)
-      .json({ msg: `DELETE product with ID ${id} was unsuccessfully. Check ID` });
+    return res.status(500).json({
+      msg: `DELETE product with ID ${id} was unsuccessfully. Check ID`,
+    });
   }
 };
 

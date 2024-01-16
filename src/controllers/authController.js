@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const { getSqlData, makeJWT } = require('../utils/helper');
 
 module.exports.register = async (req, res, next) => {
-  console.log(req.body);
   const { email, username, password } = req.body;
   const hashPsw = bcrypt.hashSync(password, 10);
   const sql = 'INSERT INTO users (email, username, password) VALUES (?,?,?)';

@@ -6,7 +6,7 @@ module.exports.getProdComments = async (req, res, next) => {
   const [commentsArr, error] = await commModels.getCommByID([id]);
 
   if (error) {
-    console.log('getPostComments error ===', error);
+    console.log('getProdComments error ===', error);
     next({ msg: 'System error', status: 500 });
     return;
   }
@@ -30,7 +30,9 @@ module.exports.createProdComments = async (req, res, next) => {
   }
   console.log('commentsArr ===', commentsArr);
   if (commentsArr.affectedRows === 1) {
-    res.status(201).json({ msg: 'Success, comment created', comm_id: commentsArr.insertId });
+    res
+      .status(201)
+      .json({ msg: 'Success, comment created', comm_id: commentsArr.insertId });
     return;
   }
 
