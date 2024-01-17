@@ -27,7 +27,7 @@ async function getSqlData(sql, argArr = []) {
 // }
 
 function makeJWT(data) {
-  return jwt.sign(data, jwtSecret, { expiresIn: '1h' });
+  return jwt.sign(data, jwtSecret, { expiresIn: '12h' });
 }
 
 module.exports = {

@@ -10,14 +10,12 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
-  const { title, username, date, content, cat_id, price, p_condition } =
-    req.body;
+  const { title, username, content, cat_id, price, p_condition } = req.body;
   const { userID } = req;
 
   const [postsArr, error] = await productsModels.createProduct([
     title,
     username,
-    date,
     content,
     cat_id,
     price,
@@ -27,7 +25,11 @@ module.exports.create = async (req, res, next) => {
 
   if (error) return next(error);
 
-  if (postsArr.affectedRows === 1) res.json({ msg: 'Published successfully' });
+  if (postsArr.affectedRows === 1) {
+    console.log(postsArr);
+    const id = postsArr.insertId;
+    res.json({ msg: 'Published successfully', id });
+  }
 };
 
 module.exports.getSingle = async (req, res, next) => {
@@ -98,13 +100,14 @@ module.exports.edit = async (req, res, next) => {
 
   if (postsArr.affectedRows === 1) {
     return res.json({
-      msg: `Product with id ${id} was edited. ${postsArr.info}`,
+      msg: 'Product updated successfully',
+      id,
     });
   }
 
   if (postsArr.affectedRows === 0) {
     return res.status(500).json({
-      msg: `UPDATE ad with ID ${id} was unsuccessfully. Check ID`,
+      msg: 'Error, no update made',
     });
   }
 };
