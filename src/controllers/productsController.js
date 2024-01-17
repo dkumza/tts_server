@@ -51,22 +51,22 @@ module.exports.getSingle = async (req, res, next) => {
 module.exports.delete = async (req, res, next) => {
   const { id } = req.params;
   // validation if product have same user ID
-  const [post] = await productsModels.checkSingleProductByID([id]);
-  console.log(post);
+  const [product] = await productsModels.checkSingleProductByID([id]);
+  console.log(product);
 
-  if (+post[0].user_id !== +req.userID) {
+  if (+product[0].user_id !== +req.userID) {
     return next({ msg: 'Auth Failed, check user ID', status: 401 });
   }
 
-  const [postsArr, error] = await productsModels.deleteProduct([id]);
+  const [productsArr, error] = await productsModels.deleteProduct([id]);
 
   if (error) return next(error);
 
-  if (postsArr.affectedRows === 1) {
+  if (productsArr.affectedRows === 1) {
     return res.json({ msg: 'Your product was deleted' });
   }
 
-  if (postsArr.affectedRows === 0) {
+  if (productsArr.affectedRows === 0) {
     return res.status(500).json({
       msg: `DELETE product with ID ${id} was unsuccessfully. Check ID`,
     });
@@ -75,16 +75,22 @@ module.exports.delete = async (req, res, next) => {
 
 module.exports.edit = async (req, res, next) => {
   const { id } = req.params;
-  const { title, author, date, content, cat_id, price, sub_id } = req.body;
+
+  // validation if product have same user ID
+  const [product] = await productsModels.checkSingleProductByID([id]);
+  console.log(product);
+
+  if (+product[0].user_id !== +req.userID) {
+    return next({ msg: 'Auth Failed, check user ID', status: 401 });
+  }
+
+  const { title, content, cat_id, price } = req.body;
 
   const [postsArr, error] = await productsModels.editProduct([
     title,
-    author,
-    date,
     content,
     cat_id,
     price,
-    sub_id,
     id,
   ]);
 

@@ -34,18 +34,18 @@ Content-Type:  application/json
 ### Delete ad by ID
 DELETE  http://localhost:3000/api/products/28
 
-### Edit AD
-PUT http://localhost:3000/api/products/12
+### Edit Product
+PUT http://localhost:3000/api/products/2
 Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdDIubHQiLCJzdWIiOjE1LCJpYXQiOjE3MDU1MTUxNTEsImV4cCI6MTcwNTUxODc1MX0.JxB-4M8zAp9XHATbTDdccS0Kwb2m0UAJ-UuGifSGdUw
+
 
 {
-    "title": "Edited Post 1",
-    "author": "Author 1",
-    "date": "2022-07-07",
-    "content": "Test content",
-    "cat_id": 1001,
-    "price": 201,
-    "sub_id": 4001
+    "title": "Edited Product2",
+    "content": "Edited content",
+    "cat_id": 2,
+    "price": 3333,
+    "p_condition": "new"
 }
 
 ### Search products by string
