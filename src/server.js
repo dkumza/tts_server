@@ -30,7 +30,6 @@ app.use('/', commRouter);
 // ERROR HANDLER
 app.use((err, req, res, next) => {
   console.log('<<<<Error handling>>>>>');
-
   console.log('err ===', err);
 
   if (err.status) {
@@ -38,14 +37,15 @@ app.use((err, req, res, next) => {
   }
 
   switch (err.code) {
-    case 'ER_DUP_ENTRY':
+    case 'ER_DUP_ENTRY': {
+      const duplicateValue = err.sqlMessage.split("'")[1];
       res.status(400);
-      res.json({ msg: 'Email already in use' });
+      res.json({
+        msg: `${duplicateValue} - already in use`,
+      });
       return;
-    case 'ER_NO_SUCH_TABLE':
-      res.status(400);
-      res.json({ msg: err.sqlMessage || 'no such table' });
-      return;
+    }
+
     default:
   }
 

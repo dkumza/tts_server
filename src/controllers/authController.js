@@ -8,6 +8,7 @@ module.exports.register = async (req, res, next) => {
   const sql = 'INSERT INTO users (email, username, password) VALUES (?,?,?)';
   const [result, error] = await getSqlData(sql, [email, username, hashPsw]);
 
+  console.log('ERRRORRR: ', error);
   if (error) return next(error);
 
   res.status(201).json({ msg: 'Account has been created', result });

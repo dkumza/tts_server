@@ -1,4 +1,5 @@
 const productsModels = require('../models/productsModels');
+const chalk = require('chalk');
 
 module.exports.getAll = async (req, res, next) => {
   // getting POST and ERROR from helper by passing sql param
