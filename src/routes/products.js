@@ -20,12 +20,7 @@ adsRouter.delete('/api/products/:id', authToken, productsController.delete);
 
 // UPDATE by ID
 // PUT /api/post/:id - edit post by ID
-adsRouter.put(
-  '/api/products/:id',
-  authToken,
-  productEditValidation,
-  productsController.edit,
-);
+adsRouter.put('/api/products/:id', authToken, productEditValidation, productsController.edit);
 
 // GET /api/categories/:id - get products by category ID
 adsRouter.get('/api/products/category/:cat_id', productsController.getAllByCat);
