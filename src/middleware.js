@@ -100,6 +100,7 @@ const commetSchema = Yup.object({
 
 const validationMiddleware = (schema) => async (req, res, next) => {
   try {
+    // validate schema from req.body and {show all validation errors}
     const user = await schema.validate(req.body, { abortEarly: false });
     next();
   } catch (error) {
