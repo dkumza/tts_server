@@ -18,6 +18,7 @@ module.exports.createProdComments = async (req, res, next) => {
   const { prod_id } = req.params;
   const { comm_author, comm_context, comm_date } = req.body;
   const { userID } = req;
+  console.log('comment: ', req.body);
 
   const commData = [comm_author, userID, comm_context, comm_date, prod_id];
 
