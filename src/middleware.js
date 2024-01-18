@@ -44,17 +44,10 @@ const signUpSchema = Yup.object({
     .trim()
     .min(6, '*Password must be at least 6 characters long')
     .required('*Password is required'),
-  // mPassword: Yup.string()
-  //    .trim()
-  //    .min(6, '*Password must be at least 6 characters long')
-  //    .test('passwords-match', 'Passwords must match', function (value) {
-  //       return this.parent.password === value;
-  //    })
-  //    .required('*Password is required'),
 });
 
 const productSchema = Yup.object({
-  cat_id: Yup.number('TEST').min(1, '*Category is required'),
+  cat_id: Yup.number().min(1, '*Category is required'),
   title: Yup.string()
     .trim()
     .min(3, '*Title must be at least 3 characters long')
@@ -68,9 +61,30 @@ const productSchema = Yup.object({
     .min(6, '*About must be at least 6 characters long')
     .required('*About is required'),
   price: Yup.number()
+    .transform((value, originalValue) => (originalValue.trim() === '' ? null : value))
     .required('*Price is required')
     .positive('*Price must be a positive number')
     .integer('*Price must be integer'),
+  p_condition: Yup.string()
+    .required('*Condition is required')
+    .oneOf(['new', 'used'], '*Condition must be either "new" or "used"'),
+});
+
+const editSchema = Yup.object({
+  cat_id: Yup.number().min(1, '*Category is required'),
+  title: Yup.string()
+    .trim()
+    .min(3, '*Title must be at least 3 characters long')
+    .required('*Title is required'),
+  content: Yup.string()
+    .required('*About is required')
+    .trim()
+    .min(6, '*About must be at least 6 characters long'),
+  price: Yup.number()
+    .transform((value, originalValue) => (originalValue.trim() === '' ? null : value))
+    .required('*Price is required')
+    .integer('*Price must be integer')
+    .positive('*Price must be a positive number'),
   p_condition: Yup.string()
     .required('*Condition is required')
     .oneOf(['new', 'used'], '*Condition must be either "new" or "used"'),
@@ -97,10 +111,12 @@ const validationMiddleware = (schema) => async (req, res, next) => {
 const loginValidation = validationMiddleware(loginSchema);
 const signUpValidation = validationMiddleware(signUpSchema);
 const productValidation = validationMiddleware(productSchema);
+const productEditValidation = validationMiddleware(editSchema);
 
 module.exports = {
   authToken,
   loginValidation,
   signUpValidation,
   productValidation,
+  productEditValidation,
 };

@@ -1,5 +1,5 @@
 const express = require('express');
-const { productValidation, authToken } = require('../middleware');
+const { productValidation, authToken, productEditValidation } = require('../middleware');
 
 const productsController = require('../controllers/productsController');
 
@@ -10,12 +10,7 @@ const adsRouter = express.Router();
 adsRouter.get('/api/products', productsController.getAll);
 
 // CREATE /api/products/ - create new product
-adsRouter.post(
-  '/api/products/',
-  productValidation,
-  authToken,
-  productsController.create,
-);
+adsRouter.post('/api/products/', authToken, productValidation, productsController.create);
 
 // GET /api/products/:id - get single product
 adsRouter.get('/api/products/:id', productsController.getSingle);
@@ -25,7 +20,12 @@ adsRouter.delete('/api/products/:id', authToken, productsController.delete);
 
 // UPDATE by ID
 // PUT /api/post/:id - edit post by ID
-adsRouter.put('/api/products/:id', authToken, productsController.edit);
+adsRouter.put(
+  '/api/products/:id',
+  authToken,
+  productEditValidation,
+  productsController.edit,
+);
 
 // GET /api/categories/:id - get products by category ID
 adsRouter.get('/api/products/category/:cat_id', productsController.getAllByCat);
