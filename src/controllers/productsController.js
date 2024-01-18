@@ -26,7 +26,7 @@ module.exports.create = async (req, res, next) => {
   if (error) return next(error);
 
   if (productsArr.affectedRows === 1) {
-    console.log(productsArr);
+    cd;
     const id = productsArr.insertId;
     res.json({ msg: 'Published successfully', id });
   }
@@ -80,19 +80,19 @@ module.exports.edit = async (req, res, next) => {
 
   // validation if product have same user ID
   const [product] = await productsModels.checkSingleProductByID([id]);
-  console.log(product);
 
   if (+product[0].user_id !== +req.userID) {
     return next({ msg: 'Auth Failed, check user ID', status: 401 });
   }
 
-  const { title, content, cat_id, price } = req.body;
+  const { title, content, cat_id, price, p_condition } = req.body;
 
   const [productsArr, error] = await productsModels.editProduct([
     title,
     content,
     cat_id,
     price,
+    p_condition,
     id,
   ]);
 

@@ -45,7 +45,7 @@ module.exports.deleteProduct = (data) => {
 module.exports.editProduct = (data) => {
   const sql = `
   UPDATE products
-  SET title = ?, content = ?, cat_id = ?, price = ?
+  SET title = ?, content = ?, cat_id = ?, price = ?, p_condition = ?
   WHERE id = ?`;
   return getSqlData(sql, data);
 };
