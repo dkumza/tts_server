@@ -51,6 +51,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAd
 ### Search products by string
 GET http://localhost:3000/api/search/gpu
 
+### Search products by owner
+GET http://localhost:3000/api/owner/skirma
+
 
 ### REGISTER User 
 POST http://localhost:3000/api/auth/register 

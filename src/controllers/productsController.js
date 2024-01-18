@@ -153,3 +153,20 @@ module.exports.getAllByCat = async (req, res, next) => {
     res.status(404).json({ msg: 'Product not found, check ID' });
   }
 };
+
+module.exports.byOwner = async (req, res, next) => {
+  const { username } = req.params;
+  console.log(username);
+  const [products, error] = await productsModels.singleProductByOwnerID([
+    username,
+  ]);
+
+  if (error) return next(error);
+
+  if (products.length > 0) {
+    return res.json(products);
+  }
+  if (products.length === 0) {
+    res.status(404).json({ msg: 'Products not found, check username' });
+  }
+};

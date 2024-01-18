@@ -36,4 +36,7 @@ adsRouter.get('/api/search/:item', productsController.search);
 //  Sort products by date asc
 adsRouter.get('/api/sort/date', productsController.sort);
 
+// GET - Get all products by username
+adsRouter.get('/api/owner/:username', productsController.byOwner);
+
 module.exports = adsRouter;

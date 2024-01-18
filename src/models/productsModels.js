@@ -85,3 +85,16 @@ module.exports.checkSingleProductByID = (data) => {
   const sql = 'SELECT * FROM products WHERE id = ?';
   return getSqlData(sql, data);
 };
+
+module.exports.singleProductByOwnerID = (data) => {
+  const sql = `
+  SELECT products.id, products.cat_id, products.title, products.username, products.content, products.date, products.price, products.p_condition,
+     categories.cat_name AS cat_name
+     FROM products
+     JOIN categories
+     ON products.cat_id=categories.cat_id
+     WHERE products.username = ?
+     GROUP BY products.date DESC
+  `;
+  return getSqlData(sql, data);
+};
