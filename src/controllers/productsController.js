@@ -26,7 +26,6 @@ module.exports.create = async (req, res, next) => {
   if (error) return next(error);
 
   if (productsArr.affectedRows === 1) {
-    cd;
     const id = productsArr.insertId;
     res.json({ msg: 'Published successfully', id });
   }
@@ -157,9 +156,7 @@ module.exports.getAllByCat = async (req, res, next) => {
 module.exports.byOwner = async (req, res, next) => {
   const { username } = req.params;
   console.log(username);
-  const [products, error] = await productsModels.singleProductByOwnerID([
-    username,
-  ]);
+  const [products, error] = await productsModels.singleProductByOwnerID([username]);
 
   if (error) return next(error);
 
